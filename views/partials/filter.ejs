@@ -1,0 +1,85 @@
+<svg style="display:none;">
+  <symbol id="icon-star" viewBox="0 0 24 24">
+    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 
+             22 12 18.27 5.82 22 7 14.14l-5-4.87 
+             6.91-1.01L12 2z"/>
+  </symbol>
+</svg>
+
+<div class="filter">
+  <div class="filter-container">
+    <div class="filter-expander">
+      <h3 id="filter-title">Search IMDb</h3>
+      <img id="filter-close" src="../icons/arrow-up.svg" width="40px" alt="close"/>
+      <img id="filter-open" src="../icons/arrow-down.svg" width="40px" alt="expand" class="filter-hidden"/>
+    </div>
+    <form id="query" action="/search" method="POST">
+      
+      <div id="title">
+        <label for="title">Movie title</label>
+        <input type="text" id="title" name="title" value="">
+      </div>
+
+      <div id="genre">
+        <label for="genre">Genre</label>
+        <input type="text" id="genre" name="genre" value="">
+      </div>
+
+      <div id="year">
+        <label for="year">Year of release</label>
+        <input type="text" id="year" name="year" value="">
+      </div>
+
+      <div id="rating">
+        <label>Minimum rating</label>
+        <fieldset class="rating">
+          <input type="radio" id="star5" name="rating" value="5">
+          <label for="star5"><svg><use href="#icon-star"></use></svg></label>
+
+          <input type="radio" id="star4" name="rating" value="4">
+          <label for="star4"><svg><use href="#icon-star"></use></svg></label>
+
+          <input type="radio" id="star3" name="rating" value="3">
+          <label for="star3"><svg><use href="#icon-star"></use></svg></label>
+
+          <input type="radio" id="star2" name="rating" value="2">
+          <label for="star2"><svg><use href="#icon-star"></use></svg></label>
+
+          <input type="radio" id="star1" name="rating" value="1">
+          <label for="star1"><svg><use href="#icon-star"></use></svg></label>
+        </fieldset>
+      </div>
+      
+      <% if (locals.error) { %>
+      <div id="error">
+        <p><%= locals.error %></p>
+      </div>
+      <% } %>
+
+      <button id="search-btn" type="submit">
+        <img src="../icons/search.svg" width="40px" alt="Search"/>
+        Search
+      </button>
+
+    </form>
+  </div>
+</div>
+
+<script>
+  const exitBtn = document.getElementById("filter-close");
+  const openBtn = document.getElementById("filter-open");
+  const content = document.getElementById("query");
+
+  console.log("execute");
+  
+  exitBtn.addEventListener('pointerdown', function () {
+    exitBtn.classList.add('filter-hidden');
+    openBtn.classList.remove('filter-hidden');
+    content.classList.add('filter-hidden');
+  });
+  openBtn.addEventListener('pointerdown', function () {
+    exitBtn.classList.remove('filter-hidden');
+    openBtn.classList.add('filter-hidden');
+    content.classList.remove('filter-hidden');
+  });
+</script>

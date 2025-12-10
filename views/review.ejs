@@ -1,0 +1,146 @@
+<%- include("partials/header.ejs") %>
+<%- include("partials/background.ejs") %>
+ 
+<svg style="display:none;">
+  <symbol id="icon-star" viewBox="0 0 24 24">
+    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 
+             22 12 18.27 5.82 22 7 14.14l-5-4.87 
+             6.91-1.01L12 2z"/>
+  </symbol>
+</svg>
+
+<div class="container">
+  <div class="grid-review">
+    <div id="review-img" class="card-review">
+      <div class="img-panel">
+        <img class="img" src="<%= locals.card.image %>" alt="<%= locals.card.cache_title %>"/>
+      </div>
+    </div>
+
+    <div id="review-info" class="card-review">
+      <h3 class="title">Rating</h3>
+      <p> 
+        <% for (var i = 0; i < 5; i++) { %>
+          <% if (i < locals.card.rating) { %> 
+            ★
+          <% } else { %>
+            ☆
+          <% } %>
+        <% } %>
+        (<%= locals.card.rating %>)
+      </p> 
+    </div>
+
+
+    <div id="review-movie" class="card-review">
+      <div id="review-view">
+        <div class="review-toggle-edit">
+          <h3 class="title"><%= locals.card.reviewTitle %></h3>
+          <img id="review-trash-btn1" class="trashBtn" src="../icons/bin.svg" width="40px" alt="Delete"/>
+          <img id="review-edit-btn" src="../icons/edit.svg" width="40px" alt="Edit"/>
+        </div>
+        <div class="review-grid">
+          <p class="text-footnote titleLabel">Title:</p>
+          <p class="text-footnote titleValue"><%= locals.card.cacheTitle %></p>
+          <p class="text-footnote authLabel">Review by:</p>
+          <p class="text-footnote authValue"><%= locals.card.author %></p>
+          <p class="text-footnote dateLabel">Date:</p>
+          <p class="text-footnote dateValue"><%= locals.card.date %></p>
+        </div>
+        <div class="flex-fill">
+          <p class="text"><%= locals.card.content %></p>
+        </div>
+      </div>
+
+      <form id="review-edit" class="review-hidden" action="/update/<%= locals.card.id %>" method="POST">
+        <div class="review-toggle-edit">
+          <h3 class="title">Edit review</h3>
+          <img id="review-trash-btn2" class="trashBtn" src="../icons/bin.svg" width="40px" alt="Delete"/>
+          <img id="review-close-btn" src="../icons/close.svg" width="40px" alt="Edit"/>
+        </div>
+        <div class="review-grid-edit">
+          <p class="text-footnote titleLabel">Title</p>
+          <input type="text" name="reviewTitle" class="titleValue" value="<%= locals.card.reviewTitle %>">
+          <p class="text-footnote authLabel">Review by</p>
+          <input type="text" name="reviewAuth" class="authValue" value="<%= locals.card.author %>">
+        </div>
+        <div class="flex-fill">
+          <textarea id="content" name="content"><%= locals.card.content %></textarea>
+        </div>
+        <div id="rating">
+          <label class="text-footnote">Rating</label>
+          <fieldset class="rating">>
+            <input type="radio" id="star5" name="rating" value="5">
+            <label for="star5"><svg><use href="#icon-star"></use></svg></label>
+
+            <input type="radio" id="star4" name="rating" value="4">
+            <label for="star4"><svg><use href="#icon-star"></use></svg></label>
+
+            <input type="radio" id="star3" name="rating" value="3">
+            <label for="star3"><svg><use href="#icon-star"></use></svg></label>
+
+            <input type="radio" id="star2" name="rating" value="2">
+            <label for="star2"><svg><use href="#icon-star"></use></svg></label>
+
+            <input type="radio" id="star1" name="rating" value="1">
+            <label for="star1"><svg><use href="#icon-star"></use></svg></label>
+          </fieldset>
+        </div>
+        <button id="review-btn" type="submit">
+          <img src="../icons/edit-message.svg" width="40px" alt="Review"/>
+          Save
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div id="modal" class="false-background modal-hidden">
+  <div class="card-modal">
+    <h3 class="title">Delete <%= locals.card.reviewTitle %>?</h3>
+    <p> This change is permanent.</p>
+    <form id="delete-modal" action="/delete/<%= locals.card.id %>" method="POST">
+      <button id="modal-btn" type="submit">
+         <img src="../icons/bin-dark.svg" width="40px" alt="Delete"/>
+         Delete
+       </button>
+    </form>
+  </div>
+</div>
+
+
+<script>
+  const exitBtn = document.getElementById("review-close-btn");
+  const openBtn = document.getElementById("review-edit-btn");
+  const content = document.getElementById("review-view");
+  const editFrm = document.getElementById("review-edit");
+  const trashBtn = Array.from(document.getElementsByClassName("trashBtn"));
+  const overlay = document.getElementById("modal");
+  
+  exitBtn.addEventListener('pointerdown', function () {
+    editFrm.classList.add('review-hidden');
+    content.classList.remove('review-hidden');
+  });
+  openBtn.addEventListener('pointerdown', function () {
+    editFrm.classList.remove('review-hidden');
+    content.classList.add('review-hidden');
+  });
+  trashBtn.forEach((btn) => {
+    btn.addEventListener('pointerdown', function () {
+      overlay.classList.remove('modal-hidden');
+    });
+  });
+  overlay.addEventListener('pointerdown', function (el) {
+    if (el.target === el.currentTarget) {
+      overlay.classList.add('modal-hidden');
+    }
+  });
+
+  document.querySelectorAll('[name="rating"]').forEach((el) => {
+      if (el.value == "<%= locals.card.rating %>") {
+        el.checked = true;
+      }
+  });
+</script>
+
+<%- include("partials/footer.ejs") %>

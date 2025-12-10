@@ -1,0 +1,203 @@
+.filter {
+  position: sticky;
+  top: var(--nav-height);
+  width: calc(100vw - (100vw - 100%));
+  background-color: var(--card);
+  
+  display: flex;
+  justify-content: space-between;
+  z-index: 100;
+}
+
+.filter-hidden {
+  display: none !important;
+}
+
+.filter>.filter-container {
+  margin: 10px 40px;
+  width: 100%;
+}
+
+.filter>.filter-container {
+  transition: height 0.2s ease-in-out;
+}
+
+.filter #filter-title {
+  box-sizing: border-box;
+  padding: 0.8rem 0;
+  color: var(--bright-norm);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.filter .filter-expander {
+  display: flex;
+  justify-content: space-between;
+}
+
+.filter form {
+  display: grid;
+  grid-template-areas: 
+  "title title title"
+  "genre year rating"
+  "empty error butns";
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  column-gap: 2rem;
+  row-gap: 0;
+  width: 100%;
+}
+
+.filter #title {
+  grid-area: title;
+}
+
+.filter #year {
+  grid-area: year;
+}
+
+.filter #genre {
+  grid-area: genre;
+}
+
+.filter #rating {
+  grid-area: rating;
+}
+
+.filter #error {
+  grid-area: error;
+  display: flex;
+  justify-content: center;
+  color: red;
+}
+
+.filter #error * {
+  color: red;
+  text-align: center;
+}
+
+
+.filter #search-btn {
+  grid-area: butns;
+  justify-self: right;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  width: min-content;
+  min-height: 24px;
+  
+  padding: 0.8rem 1.5rem;
+  margin: 10px 0;
+  
+  border-radius: 10rem;
+  border: none;
+
+  background: var(--bubble);
+
+  font-size: 1rem;
+}
+
+.filter #search-btn:hover {
+  background: var(--bright-hover);
+}
+
+.filter #search-btn * {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.filter form>div {
+  display: flex;
+  justify-content: stretch;
+  width: 100%;
+  align-items: center;
+}
+
+.filter form>div>label {
+  color: var(--text-light);
+  margin-right: 1rem;
+  min-width: 5rem;
+}
+
+.filter input[type=text] {
+  position: relative;
+  width: min-content;
+  min-height: 24px;
+  width: 100%;
+  
+  padding: 0.8rem 1.5rem;
+  margin: 10px 0; /* Header height: 44px + 0.16rem + 1.5rem (line height) */
+  
+  border-radius: 10rem;
+  border: none;
+
+  background: var(--bubble);
+}
+
+.filter button,
+#filter-close,
+#filter-open {
+  cursor: pointer;
+}
+
+input:focus, select:focus, textarea:focus, button:focus {
+    outline: none;
+}
+
+.filter form>input {
+  padding-right: 0.8rem;
+  padding-left: 0.8rem;
+}
+
+.filter form>input::placeholder {
+  color: var(--text-dark);
+}
+
+.filter .rating {
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: inline-flex;
+  flex-direction: row-reverse;
+  gap: 4px;
+}
+
+/* Hide radios but keep accessibility */
+.filter .rating input {
+  position: absolute;
+  opacity: 0;
+}
+
+/* Star icon base style */
+.filter .rating label svg {
+  width: 2.2rem;
+  height: 2.2rem;
+  fill: var(--bubble);                /* Unselected color */
+  cursor: pointer;
+  transition: fill 0.2s ease;
+}
+
+/* Hover state – highlight this star AND all previous stars */
+.filter .rating label:hover svg,
+.filter .rating label:hover ~ label svg {
+  fill: gold;
+}
+
+/* Selected state – fill all stars up to the checked one */
+.filter .rating input:checked + label svg,
+.filter .rating input:checked + label ~ label svg {
+  fill: gold;
+}
+
+/* Keyboard focus visible */
+.filter .rating input:focus-visible + label svg {
+  outline: 2px solid #0078d4;
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+

@@ -1,0 +1,22 @@
+
+<%- include("partials/header.ejs") %>
+<%- include("partials/background.ejs") %>
+  
+<div class="container">
+  <div class="grid">
+
+    <% if (!locals.cards || locals.cards.length < 1) { %>
+      
+      <%- include('partials/card.ejs') %>
+
+    <% } else { %>
+
+      <% locals.cards.forEach(function(card) { %>
+        
+        <%- include('partials/card.ejs', { card: card }) %>
+    
+    <% });} %>
+  </div>
+</div>
+
+<%- include("partials/footer.ejs") %>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles/main.css" />
+  <link rel="stylesheet" href="../../styles/bg.css" />
+  <link rel="stylesheet" href="../../styles/nav.css" />
+  <link rel="stylesheet" href="../../styles/card.css" />
+  <link rel="stylesheet" href="../../styles/filter.css" />
+  <link rel="stylesheet" href="../../styles/detail.css" />
+  <link rel="stylesheet" href="../../styles/review.css" />
+  <link rel="stylesheet" href="../../styles/modal.css" />
+  <title>MOOviac: Movie Reviews 🐄</title>
+</head>
+<body>
+  
+<!-- Brand, page name and navigation buttons -->
+<nav id="nav">
+  <div class="nav-links">
+    <img src="../icons/movie-write.svg" width="40px" alt="Rocket logo"/>
+    <h1 class="mobile-hide">Mooviac</h1>
+    <span class="mobile-hide">|</span>
+    <form action="/" method="GET">
+      <button type="submit">
+        <% if (locals.activePage === "home") { %> 
+          <span class="active-page">Reviews</span> 
+        <% } else { %> 
+          <span>Reviews</span> 
+        <% } %>
+      </button>
+    </form>
+    <span>|</span>
+      <form action="/search" method="GET">
+      <button type="submit">
+          <% if (locals.activePage === "about") { %> 
+            <span class="active-page">Search IMDb</span> 
+          <% } else { %> 
+            <span>Search IMDb</span> 
+          <% } %>
+      </button>
+    </form>
+  </div>
+
+  <!-- Searchbar -->
+  <div>
+    <form action="/find" method="GET">
+      <input type="text" name="searchString" placeholder="Search reviews" id="search">
+      <button type="submit">
+        <img src="../icons/search.svg" width="40px" alt="Search"/>
+      </button>
+    </form>
+  </div>
+</nav>

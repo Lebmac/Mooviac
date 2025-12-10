@@ -1,0 +1,36 @@
+
+<div class="card">
+  <% if (!locals.card) { %>
+
+  <a href="/search">
+    <div class="img-panel">
+      <img class="no-img" src="icons/pen-slash.svg" alt="no image icon"/>
+    </div>
+    <h3 class="title">Nothing to see here.</h3>
+    <p class="text">Looking for something moo? Search IMDb.</p>
+  </a>
+
+  <% } else { %>
+    <a href="<%=`${card.id}`%>">
+      <div class="img-panel">
+        <img class="img" src="<%= locals.card.image %>" alt="<%= locals.card.title %>"/>
+      </div>
+      <h3 class="no-title"><%= locals.card.title %></h3>
+      <% if (locals.card.genre) { %>
+      <p class="no-text">Genre: <%= locals.card.genre %></p>
+      <% } %>
+      <% if (locals.card.year) { %>
+      <p class="no-text">Year: <%= locals.card.year %></p>
+      <% } %>
+      <p class="no-text">Rating: 
+        <% for (var i = 0; i < 5; i++) { %>
+          <% if (i < locals.card.rating) { %> 
+            ★
+          <% } else { %>
+            ☆
+          <% } %>
+        <% } %>
+      </p>
+    </a>
+  <% } %>
+</div>

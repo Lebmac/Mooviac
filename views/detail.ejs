@@ -1,0 +1,143 @@
+<%- include("partials/header.ejs") %>
+<%- include("partials/background.ejs") %>
+
+<svg style="display:none;">
+  <symbol id="icon-star" viewBox="0 0 24 24">
+    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 
+             22 12 18.27 5.82 22 7 14.14l-5-4.87 
+             6.91-1.01L12 2z"/>
+  </symbol>
+</svg>
+
+<div class="container">
+  <div class="grid-detail">
+    <div id="detail-img" class="card-detail">
+      <div class="img-panel">
+        <img class="img" src="<%= locals.card.image %>" alt="<%= locals.card.title %>"/>
+      </div>
+    </div>
+
+    <div id="detail-info" class="card-detail">
+      <h3 class="title">Length</h3>
+      <p class="text"><%= locals.card.time %> minutes</p>
+      
+      <h3 class="title">Rating</h3>
+      <p class="text"> 
+        <% for (var i = 0; i < 5; i++) { %>
+          <% if (i < locals.card.rating) { %> 
+            ★
+          <% } else { %>
+            ☆
+          <% } %>
+        <% } %>
+        (<%= locals.card.rating %>)
+      </p> 
+    </div>
+
+    <div id="detail-data" class="card-detail">
+      <h3 class="title">Year</h3>
+      <p class="text"><%= locals.card.year %></p>
+      <h3 class="title">Genres</h3>
+      <% locals.card.genre.forEach((genre) => { %>
+        <p class="text"><%= genre %></p>
+      <% }); %>
+      <h3 class="title">Directors</h3>
+      <% locals.card.director.forEach((director) => { %>
+        <p class="text"><%= director %></p>
+      <% }); %>
+      <h3 class="title">Starring</h3>
+      <% locals.card.stars.forEach((star) => { %>
+        <p class="text"><%= star %></p>
+      <% }); %>
+      <h3 class="title">Languages</h3>
+      <% locals.card.language.forEach((lang) => { %>
+        <p class="text"><%= lang %></p>
+      <% }); %>
+    </div>
+
+    <div id="detail-flex">
+      <div id="detail-movie"class="card-detail">
+
+        <div>
+          <h3 class="title"><%= locals.card.title %></h3>
+          <p class="text"><%= locals.card.plot %></p>
+        </div>
+      </div>
+
+      <div id="detail-review" class="card-detail no-pad">
+        <div class="review-expander">
+          <h3 id="review-title">Write review</h3>
+          <img id="review-close" src="../icons/arrow-down.svg" width="40px" alt="close" class="filter-hidden"/>
+          <img id="review-open" src="../icons/arrow-up.svg" width="40px" alt="expand"/>
+        </div>
+
+        <form id="review" action="/review/<%= locals.card.id %>" method="POST" class="filter-hidden">
+          <input type="text" name="image" value="<%= locals.card.image %>" style="display: none;">
+          <input type="text" name="movieTitle" value="<%= locals.card.title %>" style="display: none;">
+          <input type="text" name="plot" value="<%= locals.card.plot %>" style="display: none;">
+
+          <div id="title">
+            <label for="title">Review title</label>
+            <input type="text" id="reviewTitle" name="title" value="">
+          </div>
+
+          <div id="rating">
+            <label>Rating</label>
+            <fieldset class="rating">
+              <input type="radio" id="star5" name="rating" value="5">
+              <label for="star5"><svg><use href="#icon-star"></use></svg></label>
+
+              <input type="radio" id="star4" name="rating" value="4">
+              <label for="star4"><svg><use href="#icon-star"></use></svg></label>
+
+              <input type="radio" id="star3" name="rating" value="3">
+              <label for="star3"><svg><use href="#icon-star"></use></svg></label>
+
+              <input type="radio" id="star2" name="rating" value="2">
+              <label for="star2"><svg><use href="#icon-star"></use></svg></label>
+
+              <input type="radio" id="star1" name="rating" value="1">
+              <label for="star1"><svg><use href="#icon-star"></use></svg></label>
+            </fieldset>
+          </div>
+
+          <div id="content">
+            <label for="content">Review</label>
+            <textarea id="content" name="content" value=""></textarea>
+          </div>
+
+
+
+          <button id="review-btn" type="submit">
+            <img src="../icons/edit-message.svg" width="40px" alt="Review"/>
+            Submit review
+          </button>
+        </form>
+      </div>
+    </div> 
+  </div>
+</div>
+
+<script>
+  const exitBtn = document.getElementById("review-close");
+  const openBtn = document.getElementById("review-open");
+  const content = document.getElementById("review");
+  const card = document.getElementById("detail-review");
+
+  console.log("execute");
+  
+  exitBtn.addEventListener('pointerdown', function () {
+    exitBtn.classList.add('filter-hidden');
+    openBtn.classList.remove('filter-hidden');
+    content.classList.add('filter-hidden');
+    card.classList.add('no-pad');
+  });
+  openBtn.addEventListener('pointerdown', function () {
+    exitBtn.classList.remove('filter-hidden');
+    openBtn.classList.add('filter-hidden');
+    content.classList.remove('filter-hidden');
+    card.classList.remove('no-pad');
+  });
+</script>
+
+<%- include("partials/footer.ejs") %>

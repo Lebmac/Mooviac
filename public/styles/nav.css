@@ -1,0 +1,116 @@
+#nav, #footer {
+  position: sticky;
+  top: 0;
+  width: calc(100vw - (100vw - 100%));
+  background-color: var(--card);
+  
+  display: flex;
+  justify-content: space-between;
+  z-index: 100;
+}
+
+#footer {
+  position: fixed;
+  bottom: 0px;
+  display: flex;
+  justify-content: center;
+}
+
+#footer p {
+  padding: 0.3rem;
+  font-size: smaller;
+  color: var(--text-light);
+}
+
+#nav>div {
+  position: relative;
+  width: min-content;
+  min-height: 24px;
+  min-width: 24px;
+  
+  padding: 0.8rem;
+  margin: 10px 40px; /* Header height: 44px + 0.16rem + 1.5rem (line height) */
+  
+  border-radius: 10rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: var(--bubble);
+}
+
+#nav button {
+  cursor: pointer;
+}
+
+div.nav-links>form  {
+  transition: transform 0.2s ease-in; 
+}
+
+div.nav-links>form:hover  {
+  transform: translateY(-0.2rem);
+}
+
+input:focus, select:focus, textarea:focus, button:focus {
+    outline: none;
+}
+
+h1 {
+  padding-right: 0.8rem;
+}
+
+h2 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+#nav>div>form>button span {
+  padding-right: 0.8rem;
+  padding-left: 0.8rem;
+}
+
+#nav form>input {
+  padding-right: 0.8rem;
+  padding-left: 0.8rem;
+}
+
+#nav form>input::placeholder {
+  color: var(--text-dark);
+}
+
+#nav>div>form {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+#nav>div>form * {
+  background: none;
+  border: none;
+}
+
+#nav>div * {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  white-space: nowrap;
+  height: 1.5rem;
+  justify-self: center;
+}
+
+.active-page {
+  filter: invert(1);
+}
+
+.mobile-hide {
+  display: none;
+}
+
+nav img {
+  fill: var(--text-dark);
+}
+
+@media (min-width: 600px) {
+  .mobile-hide {
+  display: block;
+}
+}
